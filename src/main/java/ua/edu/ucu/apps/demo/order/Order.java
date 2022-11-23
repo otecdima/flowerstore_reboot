@@ -3,13 +3,17 @@ package ua.edu.ucu.apps.demo.order;
 import ua.edu.ucu.apps.demo.delivery.Delivery;
 import ua.edu.ucu.apps.demo.item.Item;
 import ua.edu.ucu.apps.demo.payments.Payment;
+import ua.edu.ucu.apps.demo.users.MyUser;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Order {
     private LinkedList<Item> items;
     private Payment payment;
     private Delivery delivery;
+    private List<MyUser> myUserList;
 
     public void setPaymentStrategy(Payment payment) {
         this.payment = payment;
@@ -29,10 +33,12 @@ public class Order {
         return totalPrice;
     }
 
-    public void processOrder() {
+    public void order() {
         if (payment.pay(calculateTotalPrice())) {
             delivery.deliver(items);
-            System.out.println("Items are paid and delivered successfully!");
+            notifyUsers();
+            myUserList = new ArrayList<>();
+            System.out.println("The Items are paid and delivered successfully! The Users are notified");
         }
     }
 
@@ -43,5 +49,23 @@ public class Order {
     public Item removeItem(Item item) {
         items.remove(item);
         return item;
+    }
+
+    public void addUser(MyUser user) {
+        myUserList.add(user);
+    }
+
+    public void removeUser(MyUser user) {
+        for (MyUser userFromList: myUserList) {
+            if (userFromList.getEmail().equals(user.getEmail())) {
+                myUserList.remove(userFromList);
+            }
+        }
+    }
+
+    public void notifyUsers() {
+        for (MyUser user: myUserList) {
+            user.update("notified");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package ua.edu.ucu.apps.demo.users;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.time.Period;
 
 @Entity
 @Table
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -26,4 +28,8 @@ public class MyUser {
     public int getAge() {
         return Period.between(dob, LocalDate.now()).getYears();
     }
+
+    public void update (String status) {
+        System.out.println("User is " + status);
+    } // notified
 }
