@@ -18,6 +18,8 @@ public class UserService {
     }
 
     public void addUsers(MyUser user) {
-        userRepository.save(user);
+        if (userRepository.findMyUserByEmail(user.getEmail()).isEmpty()) {
+            userRepository.save(user);
+        }
     }
 }
