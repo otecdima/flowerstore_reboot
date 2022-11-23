@@ -1,7 +1,7 @@
-GET http://localhost:8080/flower/all
+GET https://blooming-sierra-17635.herokuapp.com/flower/all
 
 ###
-POST http://localhost:8080/flower/add
+POST https://blooming-sierra-17635.herokuapp.com/flower/add
 Content-Type: application/json
 
 {
